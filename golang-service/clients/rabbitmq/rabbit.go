@@ -42,12 +42,12 @@ func initRabbitMQ() {
 	}
 	_, err = publishChannel.QueueDeclare("chats_queue", true, false, false, false, nil)
 	if err != nil {
-		logOnError(err, "Failed to declare a queue")
+		logOnError(err, "Failed to declare chats queue")
 	}
-	// _, err = publishChannel.QueueDeclare(models.MessagesMQTopic, true, false, false, false, nil)
-	// if err != nil {
-	// 	logOnError(err, "Failed to declare a queue")
-	// }
+	_, err = publishChannel.QueueDeclare("messages_queue", true, false, false, false, nil)
+	if err != nil {
+		logOnError(err, "Failed to declare messages queue")
+	}
 	consumeChannel, err = rabbitConnection.Channel()
 	if err != nil {
 		logOnError(err, "Failed to open a channel")

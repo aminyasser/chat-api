@@ -12,7 +12,7 @@ func InitRouter() *gin.Engine {
 	serviceRoutes := r.Group("/api/v1")
 	{
 		serviceRoutes.POST("/apps/:app_token/chats" , usecase.CreateChat)
-		// serviceRoutes.POST("/apps/:app_token/chats/:chat_number/messages")
+		serviceRoutes.POST("/apps/:app_token/chats/:chat_number/messages" , usecase.CreateMessage)
 	}
 
 	r.GET("/ping", func(c *gin.Context) {
