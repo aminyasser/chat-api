@@ -96,8 +96,7 @@ func main() {
 			if err == nil {
 				log.Print("Message Created Succefully")
 			} else {
-				// redis := redis.GetRedis()
-				// redis.Decr(ctx ,msgMessage.RedisToken)
+				
 			}
 		}
 	}()
