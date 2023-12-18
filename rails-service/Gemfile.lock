@@ -89,9 +89,28 @@ GEM
       reline (>= 0.3.8)
     drb (2.2.0)
       ruby2_keywords
+    elasticsearch (7.17.10)
+      elasticsearch-api (= 7.17.10)
+      elasticsearch-transport (= 7.17.10)
+    elasticsearch-api (7.17.10)
+      multi_json
+    elasticsearch-model (7.2.1)
+      activesupport (> 3)
+      elasticsearch (~> 7)
+      hashie
+    elasticsearch-rails (7.2.1)
+    elasticsearch-transport (7.17.10)
+      faraday (>= 1, < 3)
+      multi_json
     erubi (1.12.0)
+    faraday (2.7.12)
+      base64
+      faraday-net_http (>= 2.0, < 3.1)
+      ruby2_keywords (>= 0.0.4)
+    faraday-net_http (3.0.2)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    hashie (5.0.0)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     io-console (0.7.1)
@@ -110,6 +129,7 @@ GEM
     mini_mime (1.1.5)
     minitest (5.20.0)
     msgpack (1.7.2)
+    multi_json (1.15.0)
     mutex_m (0.2.0)
     mysql2 (0.5.5)
     net-imap (0.4.8)
@@ -189,6 +209,8 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   debug
+  elasticsearch-model
+  elasticsearch-rails
   mysql2 (~> 0.5)
   puma (>= 5.0)
   rails (~> 7.1.2)

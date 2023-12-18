@@ -13,7 +13,7 @@ services:
     ports:
       - "3307:3306"
 
-  app: 
+  rails-app: 
     build:
       context: ./rails-service
       # dockerfile: Dockerfile
@@ -69,7 +69,7 @@ services:
       dockerfile: Dockerfile
     restart: always  
     depends_on:
-      - app
+      - rails-app
       - golang-app
       - db
       - redis

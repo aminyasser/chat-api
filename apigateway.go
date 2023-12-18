@@ -21,6 +21,7 @@ func main() {
 		apiRoutes.GET("/apps/:app_token", railsServiceHandler)
 		apiRoutes.GET("/apps", railsServiceHandler)
 		apiRoutes.POST("/apps", railsServiceHandler)
+		apiRoutes.GET("/apps/:app_token/chats", railsServiceHandler)
 
 	}
 
@@ -34,7 +35,7 @@ func golangServiceHandler(c *gin.Context) {
 
 // Forward request to Rails service
 func railsServiceHandler(c *gin.Context) {
-	proxyRequest(c, "http://app:3000")
+	proxyRequest(c, "http://rails-app:3000")
 }
 
 func proxyRequest(c *gin.Context, target string) {
