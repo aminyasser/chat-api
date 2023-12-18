@@ -5,7 +5,11 @@ import (
 	"log"
 
 	"github.com/aminyasser/chat-api/golang-service/app/repository"
+	"github.com/aminyasser/chat-api/golang-service/app/usecase"
+
 	"github.com/aminyasser/chat-api/golang-service/clients/rabbitmq"
+	"github.com/jasonlvhit/gocron"
+
 	// "github.com/aminyasser/chat-api/golang-service/clients/redis"
 	"github.com/aminyasser/chat-api/golang-service/domain/dto"
 	"github.com/aminyasser/chat-api/golang-service/domain/model"
@@ -96,6 +100,11 @@ func main() {
 				// redis.Decr(ctx ,msgMessage.RedisToken)
 			}
 		}
+	}()
+	go func() {
+		gocron.Every(45).Minutes().Do(usecase.UpdateAppChatCount)
+		gocron.Every(45).Minutes().Do(usecase.UpdateChatMessagesCount)
+		<-gocron.Start()
 	}()
 	<-forever
 }

@@ -3,6 +3,7 @@ package usecase
 import (
 	"encoding/json"
 	"errors"
+	"log"
 	"net/http"
 
 	"github.com/aminyasser/chat-api/golang-service/app/repository"
@@ -14,8 +15,8 @@ import (
 )
 
 var (
-	ErrAppTokenDoesntExist error = errors.New("app token doesn't exist")
-	ErrCannotConnectToRedis error = errors.New("cannot connect to redis")
+	ErrAppTokenDoesntExist   error = errors.New("app token doesn't exist")
+	ErrCannotConnectToRedis  error = errors.New("cannot connect to redis")
 	ErrCannotReadCredentials error = errors.New("cannot read credentials")
 )
 
@@ -25,8 +26,8 @@ func CreateChat(ctx *gin.Context) {
 	// check if token exists in apps table
 	if exists, _ := repository.AppTokenExists(token); !exists {
 		ctx.Error(ErrAppTokenDoesntExist)
-        ctx.AbortWithStatusJSON(http.StatusBadRequest , 
-		gin.H{"status": false, "message": ErrAppTokenDoesntExist.Error()})
+		ctx.AbortWithStatusJSON(http.StatusBadRequest,
+			gin.H{"status": false, "message": ErrAppTokenDoesntExist.Error()})
 		return
 	}
 
@@ -53,4 +54,28 @@ func CreateChat(ctx *gin.Context) {
 		"message":     "Chat created successfully",
 		"chat_number": chatNumber,
 	})
+}
+
+func UpdateAppChatCount() {
+
+	err := repository.UpdateAppChatsCount()
+	if err != nil {
+		log.Print(err.Error())
+		return
+	}
+	log.Print("Updating apps.chat_count finished.")
+
+}
+
+func UpdateChatMessagesCount() {
+
+	err := repository.UpdateChatMessagesCount()
+	if err != nil {
+		log.Print(err.Error())
+
+		return
+	}
+
+	log.Print("Updating chats.message_count finished.")
+
 }

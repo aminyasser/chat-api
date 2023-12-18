@@ -17,3 +17,13 @@ func AppTokenExists(token string) (bool, error) {
 	}
 	return true, nil
 }
+
+
+func UpdateAppChatsCount() (err error) {
+	conn, err := db.GetDB()
+	if err != nil {
+		return err
+	}
+	err = conn.Exec("UPDATE apps SET chat_count = (SELECT COUNT(id) FROM chats WHERE app_token= apps.app_token)").Error
+	return err
+}
