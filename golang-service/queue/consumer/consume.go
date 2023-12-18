@@ -17,7 +17,7 @@ func logOnError(err error, msg string) {
 
 func main() {
 	channel := rabbitmq.GetRabbitMQConsumeChannel()
-	
+
 	chats, err := channel.Consume(
 		"chats_queue",
 		"",
@@ -31,7 +31,6 @@ func main() {
 		logOnError(err, "Failed to register a consumer")
 	}
 
-
 	forever := make(chan bool)
 
 	go func() {
@@ -42,21 +41,16 @@ func main() {
 				log.Print(err.Error())
 				continue
 			}
-			
-			log.Print(chatMessage.AppToken)
-			chatDB := model.Chat{
-				AppToken: chatMessage.AppToken,
-				Number:   chatMessage.Number,
-			}
 
-			chatDB, err = repository.CreateChat(chatMessage)
+			err = repository.CreateChat(chatMessage)
 			if err != nil {
 				log.Print(err.Error())
 				continue
 			}
 
-			log.Print("Chat Created Succefully")
-			log.Print(chatDB.Number)
+			if err == nil {
+				log.Print("Chat Created Succefully")
+			}
 		}
 	}()
 	<-forever

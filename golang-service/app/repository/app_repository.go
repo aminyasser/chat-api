@@ -5,10 +5,15 @@ import (
 	"github.com/aminyasser/chat-api/golang-service/domain/model"
 )
 
-func CreateChat(chat model.Chat)  error {
+func AppTokenExists(token string) (bool, error) {
+	app := model.App{}
 	conn, err := db.GetDB()
 	if err != nil {
-		return err
+		return false , err
 	}
-	return conn.Create(&chat).Error
+	err = conn.First(&app, "app_token = ?", token).Error 
+	if err != nil {
+		return false, err
+	}
+	return true, nil
 }
