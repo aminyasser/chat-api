@@ -22,6 +22,7 @@ func main() {
 		apiRoutes.GET("/apps", railsServiceHandler)
 		apiRoutes.POST("/apps", railsServiceHandler)
 		apiRoutes.GET("/apps/:app_token/chats", railsServiceHandler)
+		apiRoutes.POST("/apps/:app_token/chats/:chat_number/messages/search", railsServiceHandler)
 
 	}
 

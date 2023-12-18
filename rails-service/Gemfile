@@ -10,9 +10,10 @@ gem "mysql2", "~> 0.5"
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
-
-gem 'elasticsearch-model'
-gem 'elasticsearch-rails'
+gem "elasticsearch" 
+gem "elasticsearch-model" ,  "~> 7.2"
+gem "elasticsearch-rails" ,  "~> 7.2"
+gem "elasticsearch-persistence" ,  "~> 7.2"
 
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
@@ -49,3 +50,5 @@ group :development do
   # gem "spring"
 end
 
+
+gem "searchkick", "~> 5.3"

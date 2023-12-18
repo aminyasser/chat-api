@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   get "/apps/:app_token", to: "apps#show"
 
   get "/apps/:app_token/chats", to: "chats#get_chats"
-  
+
+  post "/apps/:app_token/chats/:number/messages/search", to: "messages#search"
+
 
 end

@@ -17,17 +17,21 @@ services:
     build:
       context: ./rails-service
       # dockerfile: Dockerfile
-    # command: bash -c "bundle exec rails s -p 3000 -b '0.0.0.0'"  
+    command: bash -c "sh wait-for-it.sh elasticsearch:9200 && sh entrypoint.sh"
     depends_on:     
       - db
+      - elasticsearch
     ports: 
       - "3000:3000"
     volumes:
-      - .:/rails-app
-      - gem_cache:/usr/local/bundle/gems
+      - ./rails-service:/rails-app
+      - gem_cache:/usr/local/bundle/ge  ms
     env_file: ./rails-service/.env
     environment:
       RAILS_ENV: development
+      ELASTIC_SEARCH_URL: http://elasticsearch:9200
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+
   
   redis:
     image: redis:5-alpine
@@ -49,6 +53,28 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.0
+    container_name: elasticsearch
+    environment:
+      - node.name=elasticsearch
+      - cluster.name=elasticsearch
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "http.host=0.0.0.0"
+      - "transport.host=127.0.0.1"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - "9200:9200"
+    volumes:
+      - esdata1:/usr/share/elasticsearch/data
+   
 
   golang-app:
     build: ./golang-service
@@ -82,3 +108,4 @@ volumes:
   mysql-data:
   gem_cache:
   redis:
+  esdata1:
