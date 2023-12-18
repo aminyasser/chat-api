@@ -12,7 +12,7 @@ WORKDIR /app
 COPY Gemfile Gemfile.lock ./
 
 # Install bundler and gems
-RUN gem install bundler
+RUN gem install bundler -i '2.2.22'
 
 RUN bundle install
 

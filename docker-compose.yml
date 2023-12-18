@@ -28,7 +28,42 @@ services:
     env_file: .env
     environment:
       RAILS_ENV: development
+  
+  redis:
+    image: redis:5-alpine
+    command: redis-server
+    restart: always
+    ports:
+      - 6379:6379
+    volumes:
+      - 'redis:/data'
+ 
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    ports:
+      - 5672:5672   # for sender and consumer connections
+      - 15672:15672 # for serve RabbitMQ GUI
+    restart: always
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping", "-q"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  golang-app:
+    build: ./golang-service
+    restart: always
+    # command: bash -c "sh wait-for-it.sh rabbitmq:15672"
+    depends_on:
+      - db
+      - redis
+      - rabbitmq
+    volumes:
+      - .:/golang-app
+    ports:
+      - "8080:8080"   
 
 volumes:
   mysql-data:
   gem_cache:
+  redis:
