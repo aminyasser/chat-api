@@ -15,17 +15,17 @@ services:
 
   app: 
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ./rails-service
+      # dockerfile: Dockerfile
     # command: bash -c "bundle exec rails s -p 3000 -b '0.0.0.0'"  
     depends_on:     
       - db
     ports: 
       - "3000:3000"
     volumes:
-      - .:/app
+      - .:/rails-app
       - gem_cache:/usr/local/bundle/gems
-    env_file: .env
+    env_file: ./rails-service/.env
     environment:
       RAILS_ENV: development
   
@@ -62,6 +62,21 @@ services:
       - .:/golang-app
     ports:
       - "8080:8080"   
+
+  api-gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always  
+    depends_on:
+      - app
+      - golang-app
+      - db
+      - redis
+      - rabbitmq  
+    ports:
+      - "8000:8000"
+   
 
 volumes:
   mysql-data:

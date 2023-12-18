@@ -6,7 +6,6 @@ import (
 )
 
 func main() {
-	// redis , _ := redis.InitRedis()
 	router := router.InitRouter()
 	router.Run()
 	log.Println("Listening on 8080 ......")

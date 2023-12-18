@@ -1,26 +1,28 @@
-# Start from the Ruby 3.0.2 Alpine image
-FROM ruby:3.0.2
+# Use the official Golang image as the base image
+FROM golang:1.18
 
-# Install dependencies
-RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
-
-
-# Set the working directory
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copy the Gemfile and Gemfile.lock
-COPY Gemfile Gemfile.lock ./
+# Copy the Go module files
+COPY go.mod go.sum ./
 
-# Install bundler and gems
-RUN gem install bundler -i '2.2.22'
+# Download the Go module dependencies
+RUN go mod download
 
-RUN bundle install
+# Copy the rest of the application code
+COPY . .
 
-# Copy the current directory contents into the container
-COPY . ./
+# Build the Go application
+# RUN go build -o main .
 
-# Expose port 3000
-EXPOSE 3000
+# Expose the port on which the API will listen
+EXPOSE 8000
 
-# Start the main process.
-CMD ["rails", "server", "-b", "0.0.0.0"]
+# Specify the command to run when the container starts
+# CMD ["go", "run", "apigatway.go"]
+RUN chmod +x /app/entrypoint.sh
+RUN chmod +x /app/wait-for-it.sh
+
+ENTRYPOINT ["/app/wait-for-it.sh" , "golang-app" , "/app/entrypoint.sh"]
+
