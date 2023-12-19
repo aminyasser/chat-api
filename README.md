@@ -23,7 +23,7 @@ The application is all dockerize, you just need to type the following command to
 ### API Documentation
 
 You can check out the postman documentation from [Here 🚀](https://documenter.getpostman.com/view/19528493/2s9YkocLjG)
-Or import this [Postman Collection](https://github.com/aminyasser/chat-api/blob/main/Chat-API.postman_collection.json) to try locally.
+Or import this [Postman Collection](https://github.com/aminyasser/chat-api/blob/main/readme-content/Chat-API.postman_collection.json) to try locally.
 
 All requests in the api under port 8000, Example of creating app:
 ```http
@@ -32,7 +32,7 @@ POST    http://0.0.0.0:8000/api/v1/apps
 
 ## System Architecture
 ### Diagram
-<img  alt="Database"   src="chat.png" draggable="false" />
+<img  alt="Database"   src="readme-content/chat.png" draggable="false" />
 
 ### Service Structure 
 I was asked to do specific parts of the application with Golang to handle race conditions, so I made a Golang service for creating chats and messages and running workers that update the chat_count and message_count in apps and chats tables.
@@ -66,7 +66,7 @@ basic searching with ``body`` of the message using standard analyzer and filter 
 
 ## Database
 ### Diagram
-<img  alt="Database"   src="db.png" draggable="false" />
+<img  alt="Database"   src="readme-content/db.png" draggable="false" />
 
 ### Indexes
 I used indexes in the frequent queries, I added ``app_token`` index on the apps table. to make getting an app query faster, I used it to check if the app exits in the database.
