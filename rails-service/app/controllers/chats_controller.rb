@@ -14,7 +14,7 @@ class ChatsController < ApplicationController
       if @chats.empty?
           render json: { status: 'success' , message: "there is no created chats yet." }, status: 404
       else
-          render json: { status: 'success' , message: "chats fetched successfully" , chats: {@chats.to_json(except: [:id, :app_token])} } , status: 200
+          render json: { status: 'success' , message: "chats fetched successfully" , chats: @chats.to_json(except: [:id, :app_token]) } , status: 200
       end
   end
  

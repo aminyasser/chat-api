@@ -1,0 +1,116 @@
+{
+	"info": {
+		"_postman_id": "a38e5a45-bf35-42af-b21d-8057506826b5",
+		"name": "Chat API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19528493"
+	},
+	"item": [
+		{
+			"name": "App",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"first_app\"}",
+							"options": {
+							   "raw": {
+								   "language": "json"
+							   }
+							}			
+						},
+				        "url": "http://0.0.0.0:8000/api/v1/apps"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://0.0.0.0:8000/api/v1/apps"
+					},
+					"response": []
+				},
+				{
+					"name": "Get App",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://0.0.0.0:8000/api/v1/apps/EVDP8NcoecFd1oJ6VkSWjMQnKrqbxnP1iS8s"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Chat",
+			"item": [
+				{
+					"name": "Create Chat",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "http://0.0.0.0:8000/api/v1/apps/yppxE8KgybxbDS1LpU3x6MAoV2NhQZfxF3CY/chats"
+
+					},
+					"response": []
+				},
+				{
+					"name": "Get Chats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://0.0.0.0:8000/api/v1/apps/yppxE8KgybxbDS1LpU3x6MAoV2NhQZfxF3CY/chats"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Message",
+			"item": [
+				{
+					"name": "Create Message",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"body\":\"Hi\"}",
+							"options": {
+							   "raw": {
+								   "language": "json"
+							   }
+							}			
+						},
+				        "url": "http://0.0.0.0:8000/api/v1/apps/yppxE8KgybxbDS1LpU3x6MAoV2NhQZfxF3CY/chats/11/messages"
+					},
+					"response": []
+				},
+				{
+					"name": "Search Messages",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"query\":\"first\"}",
+							"options": {
+							   "raw": {
+								   "language": "json"
+							   }
+							}			
+						},
+				        "url": "http://0.0.0.0:8000/api/v1/apps/yppxE8KgybxbDS1LpU3x6MAoV2NhQZfxF3CY/chats/11/messages/search"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
